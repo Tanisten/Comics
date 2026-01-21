@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap');
+
 html,
 body {
   height: 100%;
@@ -6,7 +8,7 @@ body {
 body {
   margin: 0;
   background-color: #0a5bff;
-  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: 'PT Serif', 'Segoe UI', system-ui, -apple-system, sans-serif;
   color: #f7f7fb;
   display: flex;
   align-items: center;
