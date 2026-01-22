@@ -2,14 +2,16 @@
   width: min(100%, 393px);
   height: min(100vh, 852px);
   display: flex;
+  
   flex-direction: column;
   color: #f7f7fb;
-  padding: 24px 20px 32px;
+  padding: 24px 5px 32px 15px;
   background: linear-gradient(160deg, rgba(8, 40, 120, 0.92), rgba(10, 91, 255, 0.85));
   border-radius: 28px;
   border: 1px solid rgba(217, 181, 100, 0.7);
   box-shadow: 0 30px 70px rgba(5, 15, 40, 0.45);
-  --content-width: 320px;
+  --content-width: 340px;
+  --text-max-height: 60vh;
   overflow: hidden;
 }
 
@@ -60,12 +62,21 @@
   overflow: hidden;
   border: 1px solid rgba(217, 181, 100, 0.6);
   box-shadow: 0 20px 45px rgba(5, 15, 40, 0.35);
+  flex-shrink: 0;
+}
+
+.App-hero-card--meet {
+  height: clamp(220px, 28vh, 320px);
 }
 
 .App-hero-image {
   width: 100%;
   display: block;
   object-fit: cover;
+}
+
+.App-hero-image--meet {
+  height: 100%;
 }
 
 .App-hero-choice {
@@ -106,6 +117,22 @@
   align-items: center;
   overflow-y: auto;
   padding-bottom: 12px;
+  padding-right: 0px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(8, 28, 92, 0.9) transparent;
+}
+
+.App-content::-webkit-scrollbar {
+  width: 1px;
+}
+
+.App-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.App-content::-webkit-scrollbar-thumb {
+  background: rgba(8, 28, 92, 0.9);
+  border-radius: 999px;
 }
 
 .App-header {
@@ -139,44 +166,35 @@
   opacity: 0.75;
 }
 
-.App-text {
+.App-text-shell {
   width: 100%;
   max-width: var(--content-width);
-  font-size: 1.05rem;
-  line-height: 1.6;
   margin: 0;
-  padding: 20px;
   color: #3b2a1a;
-  white-space: pre-line;
-  max-height: 60vh;
-  overflow-y: auto;
-  padding-right: 16px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(188, 143, 50, 0.7) transparent;
+  overflow: visible;
   background: linear-gradient(165deg, #f3e6c4 0%, #e7d2a2 55%, #e0c58c 100%);
   border-radius: 18px;
   border: 1px solid rgba(188, 143, 50, 0.6);
   box-shadow: 0 14px 40px rgba(5, 15, 40, 0.35);
 }
 
+.App-text-shell--meet {
+  max-width: var(--content-width);
+}
+
+.App-text-scroll {
+  overflow: visible;
+  width: 100%;
+  padding: 20px;
+}
+
 .App-text-content {
   margin: 0;
-  padding-right: 4px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  white-space: pre-line;
 }
 
-.App-text::-webkit-scrollbar {
-  width: 4px;
-}
-
-.App-text::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 999px;
-}
-
-.App-text::-webkit-scrollbar-thumb {
-  background: rgba(188, 143, 50, 0.7);
-  border-radius: 999px;
-}
 
 .App-options {
   display: flex;
