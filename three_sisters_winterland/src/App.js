@@ -33,6 +33,7 @@ const assetLoaders = {
   meet: () => import('./assets/meet.png'),
   tavern: () => import('./assets/tavern.png'),
   tavern2: () => import('./assets/tavern2.png'),
+  artisan: () => import('./assets/artisan.png'),
 };
 
 const sceneAssets = {
@@ -41,6 +42,7 @@ const sceneAssets = {
   S10: [assetLoaders.meet],
   T0: [assetLoaders.tavern],
   T7: [assetLoaders.tavern2],
+  T3: [assetLoaders.artisan],
 };
 
 const imageModuleCache = new Map();
@@ -119,6 +121,7 @@ const starterFlags = {
   north_silence_noted: false,
   war_preparations_reported: false,
   report_sent_to_elven_high_lord: false,
+  
 };
 
 function App() {
@@ -133,6 +136,7 @@ function App() {
   const meetSrc = useSceneImage(currentId === 'S10' ? assetLoaders.meet : null);
   const tavernSrc = useSceneImage(currentId === 'T0' ? assetLoaders.tavern : null);
   const tavern2Src = useSceneImage(currentId === 'T7' ? assetLoaders.tavern2 : null);
+  const artisanSrc = useSceneImage(currentId === 'T3' ? assetLoaders.artisan : null);
 
 
   const playerLabel = useMemo(() => {
@@ -249,8 +253,8 @@ function App() {
               <span>Сцена: {currentScene.id}</span>
             </div>
           </header>
-<AppContent
-  currentId={currentId}
+          <AppContent
+            currentId={currentId}
   currentScene={currentScene}
   canInteract={canInteract}
   handleOption={handleOption}
@@ -262,6 +266,7 @@ function App() {
   tavern2Src={tavern2Src}
   fadeClass={fadeClass}
   contentRef={contentRef}
+  artisanSrc={artisanSrc}
 />
           <footer className="App-footer">
             <button

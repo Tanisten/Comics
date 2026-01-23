@@ -13,6 +13,7 @@ function AppContent({
   tavernSrc,
   fadeClass,
   contentRef,
+  artisanSrc
 }) {
   return (
           <main className={`App-content ${fadeClass}`} key={currentId} ref={contentRef}>
@@ -47,6 +48,16 @@ function AppContent({
                 )}
               </div>
             )}
+            {currentId === 'T3' && (
+              <div className="App-hero-card">
+                {artisanSrc ? (
+                  <img className="App-hero-image" src={artisanSrc} alt="Artisan" />
+                ) : (
+                  <div className="App-skeleton App-hero-image" style={{ aspectRatio: '4 / 3' }} />
+                )}
+              </div>
+            )}
+
             <div className={`App-text-shell${currentId === 'S10' ? ' App-text-shell--meet' : ''}`}>
               <div className="App-text-scroll">
                 <p className="App-text-content">{currentScene.text}</p>
