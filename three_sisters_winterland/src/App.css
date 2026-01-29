@@ -141,6 +141,9 @@
   gap: 16px;
   align-items: flex-start;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: var(--content-width);
+  align-self: center;
 }
 
 .App-overline {

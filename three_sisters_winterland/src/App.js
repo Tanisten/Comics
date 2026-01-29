@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import AppContent from './Components/AppContent.jsx';
 import './App.css';
 import prologue from './chapters/prologue.js';
-import chapter1 from './chapters/chapter_1.js';
+import chapter1, { chapter1ImageLoaders } from './chapters/chapter_1.js';
 
 const START_SCENE_ID = 'P1';
 
@@ -10,15 +10,15 @@ const START_SCENE_ID = 'P1';
 const scenes = {
   home: {
     id: 'home',
-    title: 'Северный путь',
-    text: 'История Айдай в суровом северном мире.',
+    title: 'Северный Путь',
+    text: 'История приключений в Северном Королевстве.',
     hero: true,
     options: [{ id: 'start', label: 'Играть', next: 'intro' }],
   },
   intro: {
     id: 'intro',
-    title: 'Начало пути',
-    text: 'История Айдай начинается.',
+    title: 'Введение',
+    text: 'Стань участником захватывающего путешествия по Северному Королевству. Выбирай свой путь и влиять на ход событий!',
     options: [{ id: 'start', label: 'Начать путь', next: START_SCENE_ID }],
   },
   ...prologue,
@@ -29,20 +29,9 @@ const scenes = {
 const assetLoaders = {
   homeHero: () => import('./assets/northern-path-hero.gif'),
   aidai: () => import('./assets/aidai.png'),
-  meet: () => import('./assets/meet.png'),
-  tavern: () => import('./assets/tavern.png'),
-  tavern2: () => import('./assets/tavern2.png'),
-  artisan: () => import('./assets/artisan.png'),
 };
 
-const sceneAssets = {
-  home: [assetLoaders.homeHero],
-  intro: [assetLoaders.aidai],
-  S10: [assetLoaders.meet],
-  T0: [assetLoaders.tavern],
-  T7: [assetLoaders.tavern2],
-  T3: [assetLoaders.artisan],
-};
+const sceneImageLoaders = chapter1ImageLoaders;
 
 const imageModuleCache = new Map();
 const imagePreloadCache = new Map();
@@ -128,7 +117,6 @@ function App() {
   const currentScene = scenes[currentId];
 
   const decidedOptionId = decisions?.[currentId]?.optionId ?? null;
-  const canInteract = !decidedOptionId;
 
   const currentSceneText = useMemo(() => {
     if (!currentScene) return '';
@@ -138,14 +126,12 @@ function App() {
   }, [currentScene]);
 
   const homeHeroSrc = useSceneImage(currentId === 'home' ? assetLoaders.homeHero : null);
-  const meetSrc = useSceneImage(currentId === 'S10' ? assetLoaders.meet : null);
-  const tavernSrc = useSceneImage(currentId === 'T0' ? assetLoaders.tavern : null);
-  const tavern2Src = useSceneImage(currentId === 'T7' ? assetLoaders.tavern2 : null);
-  const artisanSrc = useSceneImage(currentId === 'T3' ? assetLoaders.artisan : null);
+  const aidaiSrc = useSceneImage(currentId === 'intro' ? assetLoaders.aidai : null);
+  const sceneImageKey = currentScene?.image ?? null;
+  const currentSceneImageSrc = useSceneImage(sceneImageKey ? sceneImageLoaders[sceneImageKey] : null);
 
   const handleOption = (option) => {
     if (!option) return;
-    if (!canInteract) return;
 
     const decisionMeta = { optionId: option.id, at: Date.now() };
 
@@ -173,9 +159,13 @@ function App() {
     const nextSceneIds = currentScene?.options?.map((o) => o.next).filter(Boolean);
     if (!nextSceneIds?.length) return;
 
-    const loaders = nextSceneIds.flatMap((sceneId) => sceneAssets[sceneId] ?? []);
+    const loaders = nextSceneIds
+      .map((sceneId) => scenes[sceneId]?.image)
+      .filter(Boolean)
+      .map((key) => sceneImageLoaders[key])
+      .filter(Boolean);
+    if (!loaders.length) return;
     const uniqueLoaders = [...new Set(loaders)];
-    if (!uniqueLoaders.length) return;
 
     return runIdle(() => {
       uniqueLoaders.forEach((loader) => preloadImage(loader));
@@ -227,16 +217,11 @@ function App() {
             currentId={currentId}
             currentScene={currentScene}
             currentSceneText={currentSceneText}
-            canInteract={canInteract}
             handleOption={handleOption}
-            meetSrc={meetSrc}
-            tavernSrc={tavernSrc}
-            tavern2Src={tavern2Src}
             fadeClass={fadeClass}
             contentRef={contentRef}
-            artisanSrc={artisanSrc}
-            decisions={decisions}
             decidedOptionId={decidedOptionId}
+            currentSceneImageSrc={currentId === 'intro' ? aidaiSrc : currentSceneImageSrc}
           />
 
           <footer className="App-footer">
