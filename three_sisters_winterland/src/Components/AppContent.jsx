@@ -3,6 +3,7 @@ import React from 'react';
 function AppContent({
   currentId,
   currentScene,
+  currentSceneText,
   canInteract,
   handleOption,
   selectedHero,
@@ -19,8 +20,22 @@ function AppContent({
   onAdvance,
 }) {
   const isIntro = currentId === 'intro';
-  const isLockedByDecision = Boolean(decisions?.[currentId]);
-  const showAdvance = !isIntro && !canInteract;
+
+  // 🔑 ВАЖНО: блокировка ТОЛЬКО если решение уже есть
+  const isLockedByDecision = Boolean(decidedOptionId);
+
+  // 🔑 "Далее" показываем ТОЛЬКО если:
+  // - нельзя взаимодействовать
+  // - И решение уже принято
+  const showAdvance = !isIntro && !canInteract && isLockedByDecision;
+
+  // запрещённые опции: "передумать"
+  const isForbiddenOption = (option) => {
+    if (!option) return true;
+    const id = String(option.id ?? '');
+    const label = String(option.label ?? '').toLowerCase();
+    return id.includes('back_choice') || label.includes('передум');
+  };
 
   return (
     <main className={`App-content ${fadeClass}`} key={currentId} ref={contentRef}>
@@ -66,14 +81,18 @@ function AppContent({
 
       <div className={`App-text-shell${currentId === 'S10' ? ' App-text-shell--meet' : ''}`}>
         <div className="App-text-scroll">
-          <p className="App-text-content">{currentScene?.text}</p>
+          <p className="App-text-content">{currentSceneText}</p>
         </div>
       </div>
 
       <div className="App-options">
         {currentScene?.options?.map((option) => {
-          const locked = !isIntro && (!canInteract || isLockedByDecision);
-          const shouldDisable = locked && option.id !== decidedOptionId;
+          const forbidden = isForbiddenOption(option);
+
+          // 🔑 блокируем ТОЛЬКО если уже принято решение
+          const locked = !isIntro && isLockedByDecision;
+
+          const shouldDisable = forbidden || (locked && option.id !== decidedOptionId);
 
           return (
             <button
