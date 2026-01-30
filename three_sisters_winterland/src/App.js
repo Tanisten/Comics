@@ -3,6 +3,7 @@ import AppContent from './Components/AppContent.jsx';
 import './App.css';
 import prologue from './chapters/prologue.js';
 import chapter1, { chapter1ImageLoaders } from './chapters/chapter_1.js';
+import themeMusic from './music/music.mp3';
 
 const START_SCENE_ID = 'P1';
 
@@ -11,14 +12,14 @@ const scenes = {
   home: {
     id: 'home',
     title: 'Северный Путь',
-    text: 'История приключений в Северном Королевстве.',
+    text: 'Истории в Северном Королевстве.',
     hero: true,
     options: [{ id: 'start', label: 'Играть', next: 'intro' }],
   },
   intro: {
     id: 'intro',
     title: 'Введение',
-    text: 'Стань участником захватывающего путешествия по Северному Королевству. Выбирай свой путь и влиять на ход событий!',
+    text: 'Захватывающие путешествия по загадочным поселениям вдалеке на севере от эльфийских лесов. Выбирай свой путь и влиять на ход событий!',
     options: [{ id: 'start', label: 'Начать путь', next: START_SCENE_ID }],
   },
   ...prologue,
@@ -112,7 +113,9 @@ function App() {
   const [gameFlags, setGameFlags] = useState(starterGameFlags);
   const [currentId, setCurrentId] = useState('home');
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [showSplash, setShowSplash] = useState(true);
   const contentRef = useRef(null);
+  const audioRef = useRef(null);
 
   const currentScene = scenes[currentId];
 
@@ -172,11 +175,24 @@ function App() {
     });
   }, [currentId, currentScene]);
 
+  const startExperience = () => {
+    setShowSplash(false);
+    if (audioRef.current) {
+      audioRef.current.volume = 0.6;
+      audioRef.current.play().catch(() => {});
+    }
+  };
+
   const fadeClass = isFirstLoad ? 'App-fade App-fade--slow' : 'App-fade';
 
   return (
-    <div className="App">
-      {currentScene?.hero ? (
+    <div className={`App${showSplash ? ' App--splash' : ''}`}>
+      {showSplash ? (
+        <button className="App-splash" type="button" onClick={startExperience}>
+          <span className="App-splash-title">Северный Путь</span>
+          <span className="App-splash-subtitle">Коснись, чтобы начать</span>
+        </button>
+      ) : currentScene?.hero ? (
         <main className={`App-home ${fadeClass}`} key={currentId}>
           <div className="App-home-title">
             <p className="App-overline">Сюжетная игра</p>
@@ -239,6 +255,7 @@ function App() {
           </footer>
         </>
       )}
+      <audio ref={audioRef} src={themeMusic} loop preload="auto" />
     </div>
   );
 }
