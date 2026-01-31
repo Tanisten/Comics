@@ -103,7 +103,7 @@ const starterGameFlags = {
   path6_active: false,
   coward_seen: false,
   cart_seen: false,
-  arrowheads_found: false,
+  arrows_found: false,
   noticed_dry_wood: false,
   followed_tracks: false,
 };
@@ -140,15 +140,15 @@ function App() {
 
     setDecisions((prev) => ({ ...prev, [currentId]: decisionMeta }));
 
+    let nextFlags = gameFlags;
     if (option.setFlags?.length) {
-      setGameFlags((prev) => {
-        const updated = { ...prev };
-        option.setFlags.forEach((flag) => (updated[flag] = true));
-        return updated;
-      });
+      nextFlags = { ...gameFlags };
+      option.setFlags.forEach((flag) => (nextFlags[flag] = true));
+      setGameFlags(nextFlags);
     }
 
-    const next = option.next ?? currentId;
+    const next =
+      typeof option.next === 'function' ? option.next({ flags: nextFlags }) : option.next ?? currentId;
     setCurrentId(next);
   };
 
