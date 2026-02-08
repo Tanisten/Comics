@@ -106,6 +106,8 @@ const starterGameFlags = {
   arrows_found: false,
   noticed_dry_wood: false,
   followed_tracks: false,
+  route_anna_selected: false,
+  route_danger_selected: false,
 };
 
 function App() {

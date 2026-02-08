@@ -296,7 +296,7 @@ export const dangerPathScenes = {
 
 — Зато честно, — ответила Айдай, уже следя за исчезающим рыжим пятнышком. — Теперь вопрос — что ей было нужно? И куда она побежала так уверенно, будто знает здесь каждый куст?`,
     options: [
-      { id: "d10_realize", label: "Остановиться", next: "D11_WITCH" }
+      { id: "d10_realize", label: "Остановиться", next: "D11_THICKET" }
     ]
   },
 
@@ -327,7 +327,15 @@ export const dangerPathScenes = {
 
 С лёгким чувством неразгаданной тайны, но без сожалений, вы развернулись и пошли прочь из чащи, назад к опушке, чтобы продолжить свой путь на север. Забавный эпизод с пушистым шпионом остался позади, но в памяти — как напоминание, что в этих лесах не всё так просто, как кажется.`,
     options: [
-      { id: "d10_realize", label: "Проследовать дальше по пути", next: "" }
+      {
+        id: "d11_continue",
+        label: "Проследовать дальше по пути",
+        next: ({ flags }) => {
+          if (flags?.route_anna_selected) return "P2_WINDHOLM_ROAD";
+          if (flags?.route_danger_selected) return "P2_OSTMARK_ENTRY";
+          return "P2_OSTMARK_ENTRY";
+        }
+      }
     ]
   },
 

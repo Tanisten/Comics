@@ -133,12 +133,14 @@ C2: {
     {
       id: "c2_to_anna",
       label: "Пойти к жене торговца",
-      next: "A0"
+      next: "A0",
+      setFlags: ["route_anna_selected"]
     },
     {
       id: "c2_danger",
       label: "Выйти в путь",
-      next: "D0"
+      next: "D0",
+      setFlags: ["route_danger_selected"]
     }
   ]
 }
