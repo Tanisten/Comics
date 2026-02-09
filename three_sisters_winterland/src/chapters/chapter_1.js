@@ -3,12 +3,23 @@ import { streetScenes } from "./streetScenes.js";
 import { annaScenes } from "./annaScenes.js";
 import { dangerPathScenes } from "./dangerPathScenes.js";
 
+
 export const chapter1ImageLoaders = {
   meet: () => import("../assets/meet.png"),
   laupheim: () => import("../assets/laupheim.png"),
   tavern: () => import("../assets/tavern.png"),
   tavern2: () => import("../assets/tavern2.png"),
-  artisan: () => import("../assets/artisan.png")
+  artisan: () => import("../assets/artisan.png"),
+  elinawaiting: () => import("../assets/elinawaiting.png"),
+  elinawaiting2: () => import("../assets/elinawaiting2.png"),
+  guard: () => import("../assets/guard.png"),
+  found: () => import("../assets/found.png"),
+  street: () => import("../assets/street.png"),
+  horses: () => import("../assets/horses.png"),
+  garrison: () => import("../assets/garrison.png"),
+  hunt: () => import("../assets/hunt.png"),
+  fox: () => import("../assets/fox.png")
+
 };
 
 
