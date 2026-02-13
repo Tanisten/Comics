@@ -11,6 +11,7 @@ function AppContent({
   contentRef,
   decidedOptionId,
   currentSceneImageSrc,
+  currentSceneOptions,
 }) {
   return (
     <main className={`App-content ${fadeClass}`} key={currentId} ref={contentRef}>
@@ -41,7 +42,7 @@ function AppContent({
       )}
 
       <div className="App-options">
-        {currentScene?.options?.map((option) => (
+        {(currentSceneOptions ?? currentScene?.options ?? []).map((option) => (
           <button
             className="App-button"
             type="button"

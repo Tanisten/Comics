@@ -242,15 +242,6 @@
   margin: 0;
 }
 
-.App-meta {
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-  font-size: 0.85rem;
-  gap: 4px;
-  opacity: 0.75;
-}
-
 .App-text-shell {
   width: 100%;
   max-width: var(--content-width);
@@ -321,8 +312,10 @@
 .App-footer {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   gap: 12px;
   margin-top: 20px;
+  position: relative;
 }
 
 .App-link {
@@ -336,4 +329,78 @@
 .App-link:disabled {
   opacity: 0.4;
   text-decoration: none;
+}
+
+.App-jump {
+  position: relative;
+}
+
+.App-burger {
+  min-width: 42px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 223, 145, 0.55);
+  background: rgba(10, 33, 99, 0.5);
+  color: rgba(255, 228, 160, 0.98);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.App-jump-menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  width: min(84vw, 320px);
+  max-height: 52vh;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 214, 122, 0.45);
+  background: linear-gradient(175deg, rgba(11, 37, 114, 0.98) 0%, rgba(7, 26, 79, 0.98) 100%);
+  box-shadow: 0 16px 38px rgba(2, 8, 26, 0.55);
+  overflow: hidden;
+  z-index: 30;
+}
+
+.App-jump-title {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  color: rgba(255, 226, 147, 0.9);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.App-jump-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: calc(52vh - 42px);
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.App-jump-item {
+  border: 1px solid rgba(255, 223, 145, 0.22);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f6e4be;
+  text-align: left;
+  padding: 7px 8px;
+  display: grid;
+  gap: 2px;
+}
+
+.App-jump-item.is-active {
+  border-color: rgba(255, 231, 166, 0.7);
+  background: rgba(255, 228, 158, 0.15);
+}
+
+.App-jump-id {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  opacity: 0.78;
+}
+
+.App-jump-name {
+  font-size: 0.86rem;
+  line-height: 1.15;
 }

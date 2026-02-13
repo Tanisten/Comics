@@ -18,7 +18,11 @@ export const chapter1ImageLoaders = {
   horses: () => import("../assets/horses.png"),
   garrison: () => import("../assets/garrison.png"),
   hunt: () => import("../assets/hunt.png"),
-  fox: () => import("../assets/fox.png")
+  fox: () => import("../assets/fox.png"),
+  anna: () => import("../assets/anna.png"),
+  ostmark: () => import("../assets/ostmark.png"),
+  ostmark2: () => import("../assets/ostmark2.png"),
+  northcity: () => import("../assets/northcity.png")
 
 };
 
