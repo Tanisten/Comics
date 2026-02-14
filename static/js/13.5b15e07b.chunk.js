@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkthree_sisters_winterland=self.webpackChunkthree_sisters_winterland||[]).push([[13],{13(e,s,t){e.exports=t.p+"static/media/fox.f72e53f99d3fa1e7ddce.png"}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkthree_sisters_winterland=self.webpackChunkthree_sisters_winterland||[]).push([[35],{35(e,s,t){e.exports=t.p+"static/media/ostmark.9da6bc9593493ecc0fef.png"}}]);

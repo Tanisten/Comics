@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkthree_sisters_winterland=self.webpackChunkthree_sisters_winterland||[]).push([[989],{989(e,s,t){e.exports=t.p+"static/media/laupheim.6949c21a42f20bd7fec9.png"}}]);

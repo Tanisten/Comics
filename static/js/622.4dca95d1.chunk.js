@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkthree_sisters_winterland=self.webpackChunkthree_sisters_winterland||[]).push([[622],{622(e,s,t){e.exports=t.p+"static/media/tavern2.20e532bb156a11fbd86a.png"}}]);
