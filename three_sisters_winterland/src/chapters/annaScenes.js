@@ -574,11 +574,12 @@ P2_EDGE: {
   P2_NORTH_END: {
     id: "P2_NORTH_END",
     title: "Конец главы: Северный путь",
+    image: "end",
     text: `Конец главы: Северный путь.
 
 Продолжение следует...`,
     options: [
-      { id: "to_e0", label: "Далее", next: "E0" }
+      { id: "e0_restart", label: "Вернуться в начало", next: "home"  }
     ]
   }
 };

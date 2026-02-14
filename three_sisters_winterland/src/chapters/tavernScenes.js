@@ -818,6 +818,7 @@ TAVERN_COWARD_ENTRY : {
 TAVERN_DOOR_COWARD_LEAVES: {
   id: "TAVERN_DOOR_COWARD_LEAVES",
   title: "У двери — слишком быстрый уход",
+  image: "chase",
   text: `Ты видишь его спину уже у порога — и этого достаточно.
 
 Ты срываешься с места прежде, чем зал успевает осознать движение. Доски под ногами отзываются глухо, дверь распахивается, выпуская внутрь резкий холод.
@@ -861,6 +862,7 @@ TAVERN_DOOR_COWARD_EDGE_TALK: {
 TAVERN_DOOR_COWARD_TRUTH: {
   id: "TAVERN_DOOR_COWARD_TRUTH",
   title: "У двери — обрывок правды",
+  image: "insult",
   text: `Ты не повышаешь голос.
 
 — Ты вышел не просто так, — говоришь ты. — Ты знаешь, с кем уехал торговец.
@@ -924,6 +926,7 @@ TAVERN_DOOR_COWARD_TRUTH: {
 TAVERN_DOOR_COWARD_TRUTH_ARROWS: {
   id: "TAVERN_DOOR_COWARD_TRUTH_ARROWS",
   title: "У двери — правда о стрелах",
+  image: "insult",
   text: `Ты не спешишь с выводами.
 
 — Ты ехал с торговцем? — спрашиваешь ты просто.

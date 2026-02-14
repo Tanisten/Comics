@@ -5,8 +5,8 @@ import prologue from './chapters/prologue.js';
 import chapter1, { chapter1ImageLoaders } from './chapters/chapter_1.js';
 import themeMusic from './music/music.mp3';
 
-const SECOND_TRACK_SRC = '/music/after-intro.mp3';
-const SECOND_TRACK_DELAY_MS = 8000;
+const SECOND_TRACK_SRC = '/music/compressed.mp3';
+const SECOND_TRACK_DELAY_MS = 6000;
 
 const START_SCENE_ID = 'P1';
 
@@ -127,6 +127,7 @@ function App() {
   const contentRef = useRef(null);
   const audioRef = useRef(null);
   const musicSwitchTimeoutRef = useRef(null);
+  const musicStageRef = useRef('idle');
 
   const currentScene = scenes[currentId];
   const currentSceneOptions = useMemo(() => {
@@ -206,28 +207,39 @@ function App() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const handleFirstTrackEnded = () => {
-      if (musicSwitchTimeoutRef.current) clearTimeout(musicSwitchTimeoutRef.current);
-      musicSwitchTimeoutRef.current = setTimeout(() => {
-        const player = audioRef.current;
-        if (!player) return;
-        player.src = SECOND_TRACK_SRC;
-        player.loop = true;
-        player.volume = 0.6;
-        player.play().catch(() => {});
-      }, SECOND_TRACK_DELAY_MS);
+    const handleTrackEnded = () => {
+      if (musicStageRef.current === 'first_playing') {
+        musicStageRef.current = 'waiting_second';
+        if (musicSwitchTimeoutRef.current) clearTimeout(musicSwitchTimeoutRef.current);
+        musicSwitchTimeoutRef.current = setTimeout(() => {
+          const player = audioRef.current;
+          if (!player) return;
+          musicStageRef.current = 'second_playing';
+          player.src = SECOND_TRACK_SRC;
+          player.loop = false;
+          player.currentTime = 0;
+          player.volume = 0.6;
+          player.play().catch(() => {});
+        }, SECOND_TRACK_DELAY_MS);
+        return;
+      }
+
+      if (musicStageRef.current === 'second_playing') {
+        musicStageRef.current = 'done';
+      }
     };
 
-    audio.addEventListener('ended', handleFirstTrackEnded);
+    audio.addEventListener('ended', handleTrackEnded);
 
     return () => {
-      audio.removeEventListener('ended', handleFirstTrackEnded);
+      audio.removeEventListener('ended', handleTrackEnded);
       if (musicSwitchTimeoutRef.current) clearTimeout(musicSwitchTimeoutRef.current);
     };
   }, []);
 
   const startExperience = () => {
     setShowSplash(false);
+    musicStageRef.current = 'first_playing';
     if (musicSwitchTimeoutRef.current) clearTimeout(musicSwitchTimeoutRef.current);
     if (audioRef.current) {
       audioRef.current.pause();

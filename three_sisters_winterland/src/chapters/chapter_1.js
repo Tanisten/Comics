@@ -22,7 +22,13 @@ export const chapter1ImageLoaders = {
   anna: () => import("../assets/anna.png"),
   ostmark: () => import("../assets/ostmark.png"),
   ostmark2: () => import("../assets/ostmark2.png"),
-  northcity: () => import("../assets/northcity.png")
+  northcity: () => import("../assets/northcity.png"),
+  insult: () => import("../assets/insult.png"),
+  chase: () => import("../assets/chase.png"),
+  ride: () => import("../assets/ride.png"),
+  end: () => import("../assets/end.png")
+
+
 
 };
 
@@ -169,12 +175,6 @@ const scenes = {
   // --- ОПАСНЫЙ ПУТЬ / ЛЕС ---
   ...dangerPathScenes,
 
-  E0: {
-    id: "E0",
-    title: "Конец главы",
-    text: `Первая зимняя глава завершена. Дальше путь ведёт к стенам северного города и решениям, от которых уже нельзя будет отступить.`,
-    options: [{ id: "e0_restart", label: "Вернуться в начало", next: "home" }]
-  }
 
 };
 
